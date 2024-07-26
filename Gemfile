@@ -57,6 +57,7 @@ group :development, :test do
   gem 'byebug'
   gem 'pry-rails' 
   gem 'pry-doc'
+  gem 'faker'
   gem 'annotate'
   gem 'rubocop', '~> 0.77'
   gem 'rubocop-rails', '~> 2.3'

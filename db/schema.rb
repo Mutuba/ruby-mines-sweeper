@@ -10,18 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_26_071408) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_090811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cells", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.integer "row"
+    t.integer "col"
+    t.boolean "mine"
+    t.boolean "revealed"
+    t.boolean "flag"
+    t.integer "adjacent_mines"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_cells_on_game_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.integer "rows"
     t.integer "cols"
     t.integer "mine_count"
-    t.string "state"
+    t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.integer "level", default: 0
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
@@ -41,5 +55,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_071408) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cells", "games"
   add_foreign_key "games", "users"
 end

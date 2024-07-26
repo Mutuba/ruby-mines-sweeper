@@ -4,7 +4,7 @@ class CreateGames < ActiveRecord::Migration[7.1]
       t.integer :rows
       t.integer :cols
       t.integer :mine_count
-      t.string :state
+      t.integer :state, default: 0, null: false
 
       t.timestamps
     end
