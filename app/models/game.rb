@@ -46,8 +46,6 @@ class Game < ApplicationRecord
   belongs_to :user
   has_many :cells, dependent: :destroy
 
-  validates :rows, :cols, :mine_count, presence: true
-
   before_validation :set_dimensions_and_mine_count, on: :create
   after_create :setup_board
 
@@ -56,17 +54,17 @@ class Game < ApplicationRecord
   def set_dimensions_and_mine_count
     case level
     when 'beginner'
-      self.rows = BEGINNER_ROWS
-      self.cols = BEGINNER_COLS
-      self.mine_count = BEGINNER_MINES
+      self.rows ||= BEGINNER_ROWS
+      self.cols ||= BEGINNER_COLS
+      self.mine_count ||= BEGINNER_MINES
     when 'intermediate'
-      self.rows = INTERMEDIATE_ROWS
-      self.cols = INTERMEDIATE_COLS
-      self.mine_count = INTERMEDIATE_MINES
+      self.rows ||= INTERMEDIATE_ROWS
+      self.cols ||= INTERMEDIATE_COLS
+      self.mine_count ||= INTERMEDIATE_MINES
     when 'advanced'
-      self.rows = ADVANCED_ROWS
-      self.cols = ADVANCED_COLS
-      self.mine_count = ADVANCED_MINES
+      self.rows ||= ADVANCED_ROWS
+      self.cols ||= ADVANCED_COLS
+      self.mine_count ||= ADVANCED_MINES
     end
   end
 
@@ -99,6 +97,10 @@ class Game < ApplicationRecord
     end
   end
 
+  # for a cell at 2,2
+  # 1,1  1,2  1,3
+  # 2,1       2,3
+  # 3,1  3,2  3,3
   def neighboring_cells(cell)
     cells.where(row: (cell.row - 1)..(cell.row + 1), col: (cell.col - 1)..(cell.col + 1)).where.not(id: cell.id)
   end

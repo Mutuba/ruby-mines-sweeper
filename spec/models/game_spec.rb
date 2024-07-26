@@ -18,17 +18,15 @@ RSpec.describe Game, type: :model do
   # Association tests
   it { should belong_to(:user) }
   it { should have_many(:cells).dependent(:destroy) }
-  it { should validate_presence_of(:rows) }
-  it { should validate_presence_of(:cols) }
-  it { should validate_inclusion_of(:state).in_array(%w[pending ongoing won lost]) }
+
+  # Validations
+  it { should define_enum_for(:level).with_values(beginner: 0, intermediate: 1, advanced: 2) }
+  it { should define_enum_for(:state).with_values(pending: 0, ongoing: 1, won: 2, lost: 3) }
 
   it "initializes the board correctly" do
     user = create(:user)
-    game = Game.create(rows: 5, cols: 5, mine_count: 5, state: 'pending', user: user)
-        
-        binding.pry
-        
-    expect(game.cells.count).to eq(25)
-    expect(game.cells.where(mine: true).count).to eq(5)
+    game = Game.create(level: :beginner, user: user)    
+    expect(game.cells.count).to eq(81)
+    expect(game.cells.where(mine: true).count).to eq(10)
   end 
 end
