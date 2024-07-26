@@ -105,3 +105,15 @@ class Game < ApplicationRecord
     cells.where(row: (cell.row - 1)..(cell.row + 1), col: (cell.col - 1)..(cell.col + 1)).where.not(id: cell.id)
   end
 end
+
+# class Order < ActiveRecord::Base
+#   has_many :line_items
+
+#   validates :total_price, numericality: true
+
+#   before_create :apply_returning_customer_discount, if: lambda { |order| order.returning_customer? }
+
+#   def apply_returning_customer_discount
+#     self.total_price = self.total_price * 0.9
+#   end
+# end

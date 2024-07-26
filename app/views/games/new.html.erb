@@ -5,10 +5,10 @@
     <%= form_with model: @game, local: true do |form| %>
       <div class="mb-3">
         <%= form.label :level %>
-        <%= form.select :level, options_for_select(Game.levels.keys.map { |level| [level.titleize, level] }, selected: @game.level), { include_blank: 'Custom' }, class: "form-select" %>
+        <%= form.select :level, options_for_select(Game.levels.keys.map { |level| [level.titleize, level] }, selected: @game.level), { include_blank: 'Custom' }, class: "form-select", id: "level-select" %>
       </div>
 
-      <div id="custom-settings" style="display: none;">
+      <div id="custom-settings" class="d-none">
         <div class="mb-3">
           <%= form.label :rows %>
           <%= form.number_field :rows, class: "form-control" %>
@@ -33,19 +33,20 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const levelSelect = document.querySelector('select[name="game[level]"]');
+      const levelSelect = document.getElementById('level-select');
       const customSettings = document.getElementById('custom-settings');
 
-      function toggleCustomSettings() {
-        if (levelSelect.value === "") {
-          customSettings.style.display = 'block';
+      levelSelect.addEventListener('change', function() {
+        if (this.value === "") {
+          customSettings.classList.remove('d-none');
         } else {
-          customSettings.style.display = 'none';
+          customSettings.classList.add('d-none');
         }
-      }
+      });
 
-      levelSelect.addEventListener('change', toggleCustomSettings);
-      toggleCustomSettings();
+      if (levelSelect.value === "") {
+        customSettings.classList.remove('d-none');
+      }
     });
   </script>
 </div>
