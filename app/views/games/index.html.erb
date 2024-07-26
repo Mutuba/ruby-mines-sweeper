@@ -1,7 +1,7 @@
 <!-- app/views/games/index.html.erb -->
 <div class="container mt-4">
   <% if user_signed_in? %>
-    <h1 class="header text-center">My Games</h1>
+    <h1 class="header text-center">Games</h1>
     <div class="row">
       <% @games.each do |game| %>
         <div class="col-md-4 mb-4">
@@ -14,7 +14,13 @@
                 <strong>Mines:</strong> <%= game.mine_count %><br>
                 <strong>Status:</strong> <%= game.state.titleize %>
               </p>
-              <%= link_to 'View/Resume', game_path(game), class: 'btn btn-primary' %>
+                <% if game.state.in?(["not_started", "in_progress"]) %>
+                <% button_text = case game.state
+                                    when "not_started" then "Start"
+                                    when "in_progress" then "Resume"
+                                    end %>
+                <%= link_to button_text, game_path(game), class: 'btn btn-primary' %>
+                <% end %>
             </div>
           </div>
         </div>
