@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+.navbar-custom .nav-link {
+  color: white !important;
+}
+
+.navbar-custom .navbar-brand {
+  color: white !important;
+}

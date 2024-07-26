@@ -1,0 +1,13 @@
+<div class="container d-flex align-items-center justify-content-center">
+  <div class="text-center">
+    <br/>
+    <h1>MinesSweeperApp</h1>
+
+    <!-- Add a Google OAuth button -->
+  <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: "false" }, params: { authenticity_token: form_authenticity_token }, class: "btn btn-link", style: "margin-top: 10px;", id: "google-sign-in-button" do %>
+    <%= image_tag("web_light_sq_SI.svg", alt: "Google Sign In", class: "google-sign-in-image") %>
+  <% end %>
+  </div>
+</div>
+
+<script>
