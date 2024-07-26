@@ -18,17 +18,7 @@
 # --> ADVANCED = 24 * 24 Cells and 99 Mines
 
 class Game < ApplicationRecord
-  BEGINNER_ROWS = 9
-  BEGINNER_COLS = 9
-  BEGINNER_MINES = 10
-
-  INTERMEDIATE_ROWS = 16
-  INTERMEDIATE_COLS = 16
-  INTERMEDIATE_MINES = 40
-
-  ADVANCED_ROWS = 24
-  ADVANCED_COLS = 24
-  ADVANCED_MINES = 99
+  include GameConstants
 
   enum level: {
     beginner: 0,

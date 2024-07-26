@@ -1,14 +1,13 @@
-<!-- app/views/games/new.html.erb -->
 <div class="container mt-4">
   <% if user_signed_in? %>
     <h1>New Game</h1>
-    <%= form_with model: @game, local: true do |form| %>
+    <%= form_with model: @game, local: true, data: { controller: "form", action: "change->form#change" } do |form| %>
       <div class="mb-3">
         <%= form.label :level %>
-        <%= form.select :level, options_for_select(Game.levels.keys.map { |level| [level.titleize, level] }, selected: @game.level), { include_blank: 'Custom' }, class: "form-select", id: "level-select" %>
+        <%= form.select :level, options_for_select(Game.levels.keys.map { |level| [level.titleize, level] }, selected: @game.level), { include_blank: 'Custom' }, class: "form-select", data: { form_target: "levelSelect" } %>
       </div>
 
-      <div id="custom-settings" class="d-none">
+      <div id="custom-settings" class="d-none" data-form-target="customSettings">
         <div class="mb-3">
           <%= form.label :rows %>
           <%= form.number_field :rows, class: "form-control" %>
@@ -30,23 +29,4 @@
   <% else %>
     <p>You need to sign in to create a new game.</p>
   <% end %>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const levelSelect = document.getElementById('level-select');
-      const customSettings = document.getElementById('custom-settings');
-
-      levelSelect.addEventListener('change', function() {
-        if (this.value === "") {
-          customSettings.classList.remove('d-none');
-        } else {
-          customSettings.classList.add('d-none');
-        }
-      });
-
-      if (levelSelect.value === "") {
-        customSettings.classList.remove('d-none');
-      }
-    });
-  </script>
 </div>
