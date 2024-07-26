@@ -21,7 +21,7 @@ RSpec.describe Game, type: :model do
 
   # Validations
   it { should define_enum_for(:level).with_values(beginner: 0, intermediate: 1, advanced: 2) }
-  it { should define_enum_for(:state).with_values(pending: 0, ongoing: 1, won: 2, lost: 3) }
+  it { should define_enum_for(:state).with_values(not_started: 0, in_progress: 1, won: 2, lost: 3) }
 
   it "initializes the board correctly" do
     user = create(:user)

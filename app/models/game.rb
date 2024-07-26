@@ -37,8 +37,8 @@ class Game < ApplicationRecord
   }
   
   enum state: {
-    pending: 0,
-    ongoing: 1,
+    not_started: 0,
+    in_progress: 1,
     won: 2,
     lost: 3
   }

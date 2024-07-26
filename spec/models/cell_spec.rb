@@ -16,5 +16,14 @@
 require 'rails_helper'
 
 RSpec.describe Cell, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # Associations
+  it { should belong_to :game }
+  # Validate Column
+  it { should have_db_column(:game_id).of_type(:integer) }
+  it { should have_db_column(:row).of_type(:integer) }
+  it { should have_db_column(:col).of_type(:integer) }
+  it { should have_db_column(:adjacent_mines).of_type(:integer) }
+  it { should have_db_column(:mine).of_type(:boolean) }
+  it { should have_db_column(:revealed).of_type(:boolean) }
+  it { should have_db_column(:flag).of_type(:boolean) }
 end

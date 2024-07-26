@@ -3,8 +3,12 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks',
     sessions: 'users/sessions',
   }
-  get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  root "home#index"
+  resources :games, only: [:index, :new, :create, :show] do
+    resources :cells, only: [:update] do
+      patch :flag, on: :member
+    end
+  end
+
+  root "games#index"
 end

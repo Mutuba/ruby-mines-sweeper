@@ -1,0 +1,51 @@
+<!-- app/views/games/new.html.erb -->
+<div class="container mt-4">
+  <% if user_signed_in? %>
+    <h1>New Game</h1>
+    <%= form_with model: @game, local: true do |form| %>
+      <div class="mb-3">
+        <%= form.label :level %>
+        <%= form.select :level, options_for_select(Game.levels.keys.map { |level| [level.titleize, level] }, selected: @game.level), { include_blank: 'Custom' }, class: "form-select" %>
+      </div>
+
+      <div id="custom-settings" style="display: none;">
+        <div class="mb-3">
+          <%= form.label :rows %>
+          <%= form.number_field :rows, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :cols %>
+          <%= form.number_field :cols, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :mine_count %>
+          <%= form.number_field :mine_count, class: "form-control" %>
+        </div>
+      </div>
+
+      <%= form.submit "Start Game", class: "btn btn-primary" %>
+    <% end %>
+  <% else %>
+    <p>You need to sign in to create a new game.</p>
+  <% end %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const levelSelect = document.querySelector('select[name="game[level]"]');
+      const customSettings = document.getElementById('custom-settings');
+
+      function toggleCustomSettings() {
+        if (levelSelect.value === "") {
+          customSettings.style.display = 'block';
+        } else {
+          customSettings.style.display = 'none';
+        }
+      }
+
+      levelSelect.addEventListener('change', toggleCustomSettings);
+      toggleCustomSettings();
+    });
+  </script>
+</div>
