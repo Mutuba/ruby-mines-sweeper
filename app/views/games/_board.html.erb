@@ -1,0 +1,33 @@
+<div class="table-responsive mt-4">
+    <table class="table table-bordered table-hover text-center">
+        <% game.rows.times do |row| %>
+            <tr>
+                <% game.cols.times do |col| %>
+                    <% cell = game.cells.find_by(row: row, col: col) %>
+                    <td class="align-middle <%= 'table-primary' if cell.revealed? %>">
+                        <% if cell.revealed? %>
+                            <% if cell.mine? %>
+                                💣
+                            <% else %>
+                                <%= cell.adjacent_mines > 0 ? cell.adjacent_mines : ' ' %>
+                            <% end %>
+                        <% else %>
+                            <% if cell.flag? %>
+                                🚩
+                                <div class="d-flex justify-content-center">
+                                    <%= button_to "Unflag", flag_game_cell_path(game, cell), method: :patch, class: "btn btn-outline-warning btn-sm me-1" %>
+                                    <%= button_to "Reveal", game_cell_path(game, cell), method: :patch, class: "btn btn-outline-primary btn-sm" %>
+                                </div>
+                            <% else %>
+                                <div class="d-flex justify-content-center">
+                                    <%= button_to "Reveal", game_cell_path(game, cell), method: :patch, class: "btn btn-outline-primary btn-sm me-1" %>
+                                    <%= button_to "Flag", flag_game_cell_path(game, cell), method: :patch, class: "btn btn-outline-warning btn-sm" %>
+                                </div>
+                            <% end %>
+                        <% end %>
+                    </td>
+                <% end %>
+            </tr>
+        <% end %>
+    </table>
+</div>

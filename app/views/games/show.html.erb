@@ -1,42 +1,30 @@
-<!-- app/views/games/show.html.erb -->
 <div class="container mt-4">
     <% if user_signed_in? %>
         <h1 class="text-center">Game Board</h1>
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover text-center">
-                <% @game.rows.times do |row| %>
-                    <tr>
-                        <% @game.cols.times do |col| %>
-                            <% cell = @game.cells.find_by(row: row, col: col) %>
-                            <td class="<%= 'table-primary' if cell.revealed? %>">
-                                <% if cell.revealed? %>
-                                    <% if cell.mine? %>
-                                        💣
-                                    <% else %>
-                                        <%= cell.adjacent_mines > 0 ? cell.adjacent_mines : ' ' %>
-                                    <% end %>
-                                <% else %>
-                                    <% if cell.flag? %>
-                                        🚩
-                                    <% else %>
-                                        <div class="d-flex justify-content-center">
-                                            <%= link_to "Reveal", game_cell_path(@game, cell), method: :patch, class: "btn btn-outline-primary btn-sm me-1" %>
-                                            <%= link_to "Flag", flag_game_cell_path(@game, cell), method: :patch, class: "btn btn-outline-warning btn-sm" %>
-                                        </div>
-                                    <% end %>
-                                <% end %>
-                            </td>
-                        <% end %>
-                    </tr>
-                <% end %>
-            </table>
+
+        <!-- Progress Bars for Different Levels -->
+        <div class="progress mb-3">
+          <div class="progress-bar" role="progressbar" style="width: <%= @game.progress_percentage %>%" aria-valuenow="<%= @game.progress_percentage %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
 
-        <% if @game.state == 'won' %>
-            <h2 class="text-success text-center">You Won!</h2>
-        <% elsif @game.state == 'lost' %>
-            <h2 class="text-danger text-center">You Lost!</h2>
+        <!-- Badge for Game Status -->
+        <% case @game.state %>
+        <% when 'won' %>
+            <div class="alert alert-success text-center" role="alert">
+                <h2>You Won!</h2>
+            </div>
+        <% when 'lost' %>
+            <div class="alert alert-danger text-center" role="alert">
+                <h2>You Lost!</h2>
+            </div>
+        <% else %>
+            <div class="badge bg-secondary text-light text-center" role="status">
+                <%= @game.state.titleize %>
+            </div>
         <% end %>
+
+        <!-- Render the Game Board Partial -->
+        <%= render 'board', game: @game %>
 
     <% else %>
         <p class="text-center">You need to sign in to view this game.</p>

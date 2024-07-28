@@ -21,6 +21,9 @@ class GamesController < ApplicationController
 
   def show
     @game = current_user.games.find(params[:id])
+    if @game.state == "not_started"
+      @game.update_attribute(:state, :in_progress)
+    end
   end
 
   private

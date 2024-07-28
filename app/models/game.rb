@@ -19,6 +19,7 @@
 
 class Game < ApplicationRecord
   include GameConstants
+  include GameBoardSetup
 
   enum level: {
     beginner: 0,
@@ -37,53 +38,14 @@ class Game < ApplicationRecord
   has_many :cells, dependent: :destroy
 
   before_validation :set_dimensions_and_mine_count, on: :create
-  after_create :setup_board
 
-  private
-
-  def set_dimensions_and_mine_count
-    case level
-    when 'beginner'
-      self.rows ||= BEGINNER_ROWS
-      self.cols ||= BEGINNER_COLS
-      self.mine_count ||= BEGINNER_MINES
-    when 'intermediate'
-      self.rows ||= INTERMEDIATE_ROWS
-      self.cols ||= INTERMEDIATE_COLS
-      self.mine_count ||= INTERMEDIATE_MINES
-    when 'advanced'
-      self.rows ||= ADVANCED_ROWS
-      self.cols ||= ADVANCED_COLS
-      self.mine_count ||= ADVANCED_MINES
-    end
+  def progress_percentage
+    ((cells.where(revealed: true).size.to_f / cells.size) * 100).round
   end
 
-  def setup_board
-    rows.times do |row|
-      cols.times do |col|
-        cells.create(row: row, col: col, mine: false, revealed: false, flag: false, adjacent_mines: 0)
-      end
-    end
-    place_mines
-    calculate_adjacent_mines
-  end
-
-  def place_mines
-    mine_count.times do
-      loop do
-        cell = cells.sample
-        unless cell.mine?
-          cell.update(mine: true)
-          break
-        end
-      end
-    end
-  end
-
-  def calculate_adjacent_mines
-    cells.each do |cell|
-      adjacent_mines = neighboring_cells(cell).count(&:mine?)
-      cell.update(adjacent_mines: adjacent_mines)
+  def check_win_condition
+    if cells.where(mine: false, revealed: false).empty?
+      update(state: :won)
     end
   end
 
@@ -93,6 +55,25 @@ class Game < ApplicationRecord
   # 3,1  3,2  3,3
   def neighboring_cells(cell)
     cells.where(row: (cell.row - 1)..(cell.row + 1), col: (cell.col - 1)..(cell.col + 1)).where.not(id: cell.id)
+  end
+
+  private
+
+  def set_dimensions_and_mine_count
+    case level
+    when 'beginner'
+      self.rows ||= BEGINNER_ROWS
+      self.cols ||= BEGINNER_COLS
+      self.mine_count ||= 0
+    when 'intermediate'
+      self.rows ||= INTERMEDIATE_ROWS
+      self.cols ||= INTERMEDIATE_COLS
+      self.mine_count ||= INTERMEDIATE_MINES
+    when 'advanced'
+      self.rows ||= ADVANCED_ROWS
+      self.cols ||= ADVANCED_COLS
+      self.mine_count ||= ADVANCED_MINES
+    end
   end
 end
 
