@@ -18,6 +18,5 @@ class Cell < ApplicationRecord
 
   def flag!
     update(flag: !flag)
-    game.update(state: :lost) if mine?
   end
 end
