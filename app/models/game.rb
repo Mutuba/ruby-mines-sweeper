@@ -64,7 +64,7 @@ class Game < ApplicationRecord
     when 'beginner'
       self.rows ||= BEGINNER_ROWS
       self.cols ||= BEGINNER_COLS
-      self.mine_count ||= 0
+      self.mine_count ||= 10
     when 'intermediate'
       self.rows ||= INTERMEDIATE_ROWS
       self.cols ||= INTERMEDIATE_COLS
