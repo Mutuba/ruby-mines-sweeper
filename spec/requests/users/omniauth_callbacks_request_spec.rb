@@ -18,11 +18,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :request do
     end
   end
 
-  describe 'log in with invalid auth' do
-    before do
-      OmniAuth.config.add_mock(:google_oauth2, {})
-    end
-    
+  describe 'log in with invalid auth' do    
     it 'redirects user to sign in page' do
       get user_google_oauth2_omniauth_callback_path
       expect(response).to redirect_to new_user_session_path
