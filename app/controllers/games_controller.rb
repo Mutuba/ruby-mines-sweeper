@@ -34,10 +34,6 @@ class GamesController < ApplicationController
     end
   end
 
-  def destroy    
-    @game.destroy
-  end
-
   private
 
   def set_game

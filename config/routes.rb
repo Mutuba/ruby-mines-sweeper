@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
   }
 
-  resources :games, only: [:index, :new, :create, :update, :show, :destroy] do
+  resources :games, only: [:index, :new, :create, :update, :show] do
     resources :cells, only: [:update] do
       patch :flag, on: :member
     end

@@ -65,18 +65,18 @@ RSpec.describe GamesController, type: :request do
     end
   end
 
-  describe "DELETE #destroy" do
-    let(:user) { create(:user) }
-    let!(:game) { create(:game, rows: 1, cols: 1, mine_count: 1, user: user) }
+  # describe "DELETE #destroy" do
+  #   let(:user) { create(:user) }
+  #   let!(:game) { create(:game, rows: 1, cols: 1, mine_count: 1, user: user) }
   
-    before do
-      sign_in user
-    end
+  #   before do
+  #     sign_in user
+  #   end
   
-    it "deletes the game" do
-      expect {
-        delete game_path(game)
-      }.to change(Game, :count).by(-1)
-    end
-  end
+  #   it "deletes the game" do
+  #     expect {
+  #       delete game_path(game)
+  #     }.to change(Game, :count).by(-1)
+  #   end
+  # end
 end
