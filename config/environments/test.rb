@@ -61,10 +61,4 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   # config.action_controller.raise_on_missing_callback_actions = true
-  OmniAuth.config.test_mode = true
-  OmniAuth.config.mock_auth = OmniAuth::AuthHash.new(
-    provider: 'google_oauth2',
-    uid: '123456',
-    info: { email: 'fakegmail@gmail.com' }
-  )
 end

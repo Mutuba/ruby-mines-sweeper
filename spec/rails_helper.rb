@@ -23,12 +23,18 @@ RSpec.configure do |config|
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
-
-  config.include Warden::Test::Helpers
-  # config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
-
-
+  config.include Warden::Test::Helpers
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.add_mock(:google_oauth2, {
+    provider: 'google_oauth2',
+    uid: '123456',
+    info: { email: 'fakegmail@gmail.com' }
+  })
+  
+  config.after(:each) do
+    OmniAuth.config.add_mock(:google_oauth2, {})
+  end
 
   config.infer_spec_type_from_file_location!
 
@@ -44,7 +50,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-    # start the transaction strategy as examples are run
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
