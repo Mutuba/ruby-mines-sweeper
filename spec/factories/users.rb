@@ -19,5 +19,15 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email  }
     password { 'SecretPassword123' }
+
+    transient do
+      games_count { 5 } 
+    end
+
+    trait :with_games do
+      after(:create) do |user, evaluator|
+        create_list(:game, evaluator.games_count, user: user)
+      end
+    end
   end
 end

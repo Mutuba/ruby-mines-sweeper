@@ -16,6 +16,7 @@ FactoryBot.define do
   factory :game do
     rows {Faker::Number.within(range: 1..10)}
     cols {Faker::Number.within(range: 1..10)}
+    level { Game.levels[0]}
     mine_count {Faker::Number.within(range: 1..10)}
     association :user, factory: :user
   end
