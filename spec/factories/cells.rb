@@ -15,7 +15,7 @@
 #
 FactoryBot.define do
   factory :cell do
-    game { nil }
+    association :game, factory: :game
     row { 1 }
     col { 1 }
     mine { false }
