@@ -43,7 +43,7 @@ class Game < ApplicationRecord
     ((cells.where(revealed: true).size.to_f / cells.size) * 100).round
   end
 
-  def check_win_condition
+  def check_win_condition    
     if cells.where(mine: false, revealed: false).empty?
       update(state: :won)
     end
