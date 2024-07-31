@@ -21,6 +21,6 @@ FactoryBot.define do
     mine { false }
     revealed { false }
     flag { false }
-    adjacent_mines { 1 }
+    adjacent_mines { 0 }
   end
 end

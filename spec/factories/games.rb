@@ -14,10 +14,10 @@
 #
 FactoryBot.define do
   factory :game do
-    rows {Faker::Number.within(range: 1..10)}
-    cols {Faker::Number.within(range: 1..10)}
+    rows { 3 }
+    cols { 3 }
     level { Game.levels[0]}
-    mine_count {Faker::Number.within(range: 1..10)}
+    mine_count { 0 }
     association :user, factory: :user
   end
 end

@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe CellRevealService do
 
   describe "# call" do
-    let(:game) { create(:game)}
-    let(:cell) { create(:cell, game: game, adjacent_mines: 0) }
+    let(:game) { create(:game, rows: 2, cols: 2, mine_count: 1)}
+    let(:cell) { create(:cell, game: game, col: 2, row: 2) }
+    let(:neighboring_cells) { create_list(:cell, 3, game: game) }
 
     context 'when cell is not revealed' do
       it "should update the cell to revealed" do
@@ -39,7 +40,6 @@ RSpec.describe CellRevealService do
     end
 
     context 'when cell has no adjacent mines' do
-      let!(:neighboring_cells) { create_list(:cell, 3, game: game, revealed: false, mine: false, adjacent_mines: 0) }
 
       before do
         allow(game).to receive(:neighboring_cells).with(cell).and_return(neighboring_cells)
@@ -58,7 +58,6 @@ RSpec.describe CellRevealService do
       before { cell.update(adjacent_mines: 1) }
 
       it 'does not reveal neighboring cells' do
-        neighboring_cells = create_list(:cell, 3, game: game, revealed: false, mine: false)
         allow(game).to receive(:neighboring_cells).with(cell).and_return(neighboring_cells)
         CellRevealService.call(cell: cell)
         neighboring_cells.each do |neighbor|
