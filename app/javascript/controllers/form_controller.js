@@ -1,4 +1,3 @@
-// import { Controller } from "stimulus";
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -9,11 +8,12 @@ export default class extends Controller {
   }
 
   toggleCustomSettings() {
-    const isCustomLevel = this.levelSelectTarget.value === "";
+    const selectedLevel = this.levelSelectTarget.value;
+    const isCustomLevel = selectedLevel === "Custom";
     this.customSettingsTarget.classList.toggle("d-none", !isCustomLevel);
   }
 
-  change(event) {
+  change() {
     this.toggleCustomSettings();
   }
 }

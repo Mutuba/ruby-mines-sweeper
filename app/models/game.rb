@@ -24,7 +24,8 @@ class Game < ApplicationRecord
   enum level: {
     beginner: 0,
     intermediate: 1,
-    advanced: 2
+    advanced: 2,    
+    custom: 3 
   }
   
   enum state: {
@@ -43,12 +44,6 @@ class Game < ApplicationRecord
     ((cells.where(revealed: true).size.to_f / cells.size) * 100).round
   end
 
-  def check_win_condition    
-    if cells.where(mine: false, revealed: false).empty?
-      update(state: :won)
-    end
-  end
-
   # for a cell at 2,2
   # 1,1  1,2  1,3
   # 2,1       2,3
@@ -64,7 +59,7 @@ class Game < ApplicationRecord
     when 'beginner'
       self.rows ||= BEGINNER_ROWS
       self.cols ||= BEGINNER_COLS
-      self.mine_count ||= 10
+      self.mine_count ||= BEGINNER_MINES
     when 'intermediate'
       self.rows ||= INTERMEDIATE_ROWS
       self.cols ||= INTERMEDIATE_COLS
