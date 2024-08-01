@@ -4,7 +4,7 @@ class CellsController < ApplicationController
   before_action :set_up_cell
 
   def update
-    CellRevealService.call(cell: @cell)
+    result = CellRevealService.call(cell: @cell)
     redirect_to @cell.game
   end
 

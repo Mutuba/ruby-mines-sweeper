@@ -48,23 +48,3 @@ class CellRevealService < ApplicationService
     end
   end
 end
-
-
-# class BooksController < ActionController::Base
-#   def create
-#     Book.transaction do
-#       book = Book.new(params[:book])
-#       book.save!
-#       if today_is_friday?
-#         # The system must fail on Friday so that our support department
-#         # won't be out of job. We silently rollback this transaction
-#         # without telling the user.
-#         raise ActiveRecord::Rollback
-#       end
-#     end
-#     # ActiveRecord::Rollback is the only exception that won't be passed on
-#     # by ActiveRecord::Base.transaction, so this line will still be reached
-#     # even on Friday.
-#     redirect_to root_url
-#   end
-# end
