@@ -37,6 +37,8 @@ class Game < ApplicationRecord
 
   belongs_to :user
   has_many :cells, dependent: :destroy
+  validates :rows, :cols, numericality: { only_integer: true, greater_than: 0 }
+  validate :prevent_state_change_if_lost, on: :update
 
   before_validation :set_dimensions_and_mine_count, on: :create
 
@@ -68,6 +70,12 @@ class Game < ApplicationRecord
       self.rows ||= ADVANCED_ROWS
       self.cols ||= ADVANCED_COLS
       self.mine_count ||= ADVANCED_MINES
+    end
+  end
+
+  def prevent_state_change_if_lost
+    if state_was == "lost" && state_changed?
+      errors.add(:state, "cannot be changed once the game is lost.")
     end
   end
 end

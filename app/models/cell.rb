@@ -17,6 +17,6 @@ class Cell < ApplicationRecord
   belongs_to :game
 
   def flag!
-    update(flag: !flag)
+    !update(flag: !flag)
   end
 end

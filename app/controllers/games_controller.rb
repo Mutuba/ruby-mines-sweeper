@@ -12,7 +12,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    if @game.state == "not_started"
+    if @game.not_started?
       @game.update_attribute(:state, :in_progress)
     end
   end
