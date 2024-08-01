@@ -1,11 +1,11 @@
 <!-- app/views/games/index.html.erb -->
 <div class="container mt-4">
   <% if user_signed_in? %>
-    <h1 class="header text-center">Games</h1>
-    <div class="row">
+    <h1 class="header text-center mb-4">Games</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
       <% @games.each do |game| %>
-        <div class="col-md-4 mb-4 d-flex justify-content-center">
-          <div class="card">
+        <div class="col">
+          <div class="card h-100">
             <div class="card-body">
               <h5 class="card-title"><%= game.level.titleize %> Game</h5>
               <p class="card-text">
@@ -14,13 +14,13 @@
                 <strong>Mines:</strong> <%= game.mine_count %><br>
                 <strong>Status:</strong> <%= game.state.titleize %>
               </p>
-                <% if game.state.in?(["not_started", "in_progress"]) %>
+              <% if game.state.in?(["not_started", "in_progress"]) %>
                 <% button_text = case game.state
                                     when "not_started" then "Start"
                                     when "in_progress" then "Resume"
                                     end %>
                 <%= link_to button_text, game_path(game), class: 'btn btn-primary' %>
-                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
