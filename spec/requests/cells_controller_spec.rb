@@ -9,18 +9,24 @@ RSpec.describe CellsController, type: :request do
 
   describe "UPDATE #update" do
     before do
-      put game_cell_path(game, cell)
+      patch game_cell_path(game, cell)
     end
 
     it "should update cells" do
-
       expect(response).to have_http_status 302
-      expect(response).to redirect_to(game)
+      expect(response).to redirect_to(game)   
+    end
+  end
 
-      
-      # binding.pry
-      
+  describe "FLAG #flag" do
+
+    before do
+      patch flag_game_cell_path(game, cell)
     end
 
+    it "should flag cells" do
+      expect(response).to have_http_status 302
+      expect(response).to redirect_to(game)  
+    end
   end
 end

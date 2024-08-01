@@ -13,7 +13,7 @@ class CellsController < ApplicationController
     end
   end
 
-  def flag    
+  def flag
     @cell.flag!
     redirect_to @cell.game
   end
