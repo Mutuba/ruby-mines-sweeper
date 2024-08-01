@@ -74,7 +74,7 @@ class Game < ApplicationRecord
   end
 
   def prevent_state_change_if_lost
-    if state_was == "lost" && state_changed?
+    if state_was.to_sym == :lost && state_changed?
       errors.add(:state, "cannot be changed once the game is lost.")
     end
   end
