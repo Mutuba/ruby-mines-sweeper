@@ -1,24 +1,73 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- MineSweeper app implementation in Ruby.
 
-Things you may want to cover:
+- The application allows a user to choose between preset level games or create custom one when on the new game screen.
 
-* Ruby version
+- This application uses Ruby version 3.2.2 To install, use rvm or rbenv.
 
-* System dependencies
+- RVM
 
-* Configuration
+`rvm install 3.2.2`
 
-* Database creation
+`rvm use 3.2.2`
 
-* Database initialization
+- Rbenv
 
-* How to run the test suite
+`rbenv install 3.2.2`
 
-* Services (job queues, cache servers, search engines, etc.)
+- Bundler provides a consistent environment for Ruby projects by tracking and installing
+  the exact gems and versions that are needed. I recommend bundler version 2.0.2. To install:
 
-* Deployment instructions
+- You need Rails. The rails version being used is rails version 7
 
-* ...
+- To install:
+
+`gem install rails -v '~> 7'`
+
+\*To get up and running with the project locally, follow the following steps.
+
+- Clone the app
+
+- With SSH
+
+`git@github.com:Mutuba/ruby-mines-sweeper.git`
+
+- With HTTPS
+
+`https://github.com/Mutuba/ruby-mines-sweeper.git`
+
+- Move into the directory and install all the requirements.
+
+- cd ruby-mines-sweeper
+
+- run `bundle install` to install application packages
+
+- Run `rails db:create` to create a database for the application
+
+- Run `rails db:migrate` to run database migrations and create database tables
+
+- The application can be run by running the below command:-
+
+`rails s` or `rails server`
+
+- To run tests, run the following command
+  `rspec`
+
+Screenshots:
+
+Urls page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 53 09" src="https://github.com/user-attachments/assets/7eb4ba04-4972-4ed7-9dd6-e5bf9616be97">
+
+Batches page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 52 52" src="https://github.com/user-attachments/assets/75c5a6c7-9e4e-4fe3-9f13-aeb48af42c91">
+
+CSV upload Page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 53 44" src="https://github.com/user-attachments/assets/7e0dbe9b-9d67-4625-9686-f58bfeac517d">
+
+Upload Progress page
+
+<img width="1440" alt="Screenshot 2024-07-16 at 07 54 10" src="https://github.com/user-attachments/assets/26875810-3781-4e58-9c94-6aed88c8d0e8">
+
+Url update page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 53 32" src="https://github.com/user-attachments/assets/7298ac61-1f31-4e32-a841-2fff897b5887">
