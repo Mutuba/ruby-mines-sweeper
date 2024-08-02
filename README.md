@@ -57,16 +57,20 @@
 Screenshots:
 
 Games listing page
+<img width="1440" alt="Screenshot 2024-08-02 at 17 03 06" src="https://github.com/user-attachments/assets/62f16845-b06b-4fb0-ae49-144a13233d42">
 
-Batches page
-<img width="1440" alt="Screenshot 2024-07-16 at 07 52 52" src="https://github.com/user-attachments/assets/75c5a6c7-9e4e-4fe3-9f13-aeb48af42c91">
 
-CSV upload Page
-<img width="1440" alt="Screenshot 2024-07-16 at 07 53 44" src="https://github.com/user-attachments/assets/7e0dbe9b-9d67-4625-9686-f58bfeac517d">
+Custom game set up page
+<img width="1435" alt="Screenshot 2024-08-02 at 17 06 19" src="https://github.com/user-attachments/assets/f37c28c5-1a9d-4b53-a16f-f023ec11c397">
 
-Upload Progress page
 
-<img width="1440" alt="Screenshot 2024-07-16 at 07 54 10" src="https://github.com/user-attachments/assets/26875810-3781-4e58-9c94-6aed88c8d0e8">
+A game in session
+<img width="1440" alt="Screenshot 2024-08-02 at 17 05 39" src="https://github.com/user-attachments/assets/4857c260-a72f-416b-82da-cb968c4597cc">
 
-Url update page
-<img width="1440" alt="Screenshot 2024-07-16 at 07 53 32" src="https://github.com/user-attachments/assets/7298ac61-1f31-4e32-a841-2fff897b5887">
+
+A lost game
+
+<img width="1440" alt="Screenshot 2024-08-02 at 17 05 14" src="https://github.com/user-attachments/assets/9a25a481-35d9-4379-95f3-e3a311c08cbd">
+
+
+Game levels listing
