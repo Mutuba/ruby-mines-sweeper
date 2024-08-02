@@ -70,6 +70,8 @@ class Game < ApplicationRecord
       self.rows ||= ADVANCED_ROWS
       self.cols ||= ADVANCED_COLS
       self.mine_count ||= ADVANCED_MINES
+    else
+      self.level ||= :custom
     end
   end
 

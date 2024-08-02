@@ -40,7 +40,7 @@ RSpec.describe GamesController, type: :request do
         post games_path, params: { game: game_params }
       }.to change(Game, :count).by(1)
       expect(response.status).to eq 302  
-      expect(response).to redirect_to(Game.last)
+      expect(response).to redirect_to games_path
     end
   end
 
