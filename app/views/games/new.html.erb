@@ -1,8 +1,7 @@
 <div class="container mt-4">
-  <% if user_signed_in? %>
     <h1 class="new-game-header text-center">New Game</h1>
     <%= form_with model: @game, local: true do |form| %>
-      <div class="mb-3">
+      <div class="mb-30" style="margin-bottom: 8rem;">
         <%= form.label :level %>
         <%= form.select :level, options_for_select(Game.levels.keys.reject { |level| level == "custom" }.map { |level| [level.titleize, level] }, selected: @game.level), { include_blank: true }, class: "form-select" %>
       </div>
@@ -14,9 +13,6 @@
         </button>
       </div>
     <% end %>
-  <% else %>
-    <p>You need to sign in to create a new game.</p>
-  <% end %>
 </div>
 
 <div class="modal fade" id="customSettingsModal" tabindex="-1" aria-hidden="true">
