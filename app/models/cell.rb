@@ -16,7 +16,17 @@
 class Cell < ApplicationRecord
   belongs_to :game
 
+  validate :prevent_state_change_if_game_is_lost, on: :update
+
   def flag!
     !update(flag: !flag)
+  end
+
+  private
+
+  def prevent_state_change_if_game_is_lost    
+    if game.state.to_sym == :lost
+      errors.add(:base, "Cannot update a cell because the game is lost.")
+    end
   end
 end
