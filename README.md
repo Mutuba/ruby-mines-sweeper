@@ -56,8 +56,7 @@
 
 Screenshots:
 
-Urls page
-<img width="1440" alt="Screenshot 2024-07-16 at 07 53 09" src="https://github.com/user-attachments/assets/7eb4ba04-4972-4ed7-9dd6-e5bf9616be97">
+Games listing page
 
 Batches page
 <img width="1440" alt="Screenshot 2024-07-16 at 07 52 52" src="https://github.com/user-attachments/assets/75c5a6c7-9e4e-4fe3-9f13-aeb48af42c91">
