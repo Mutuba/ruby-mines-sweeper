@@ -32,7 +32,7 @@ RSpec.describe Cell, type: :model do
       let(:game) { create(:game) }
       let!(:cell) { create(:cell, game: game, revealed: true)}
       before { game.update(state: :lost) }
-      
+
     it 'raises an error when trying to update a cell if the game is lost' do
       expect { cell.update!(revealed: false) }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Cannot update a cell because the game is lost.")
       cell.reload
