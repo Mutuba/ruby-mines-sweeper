@@ -4,11 +4,9 @@ module Error
     extend ActiveSupport::Concern
     included do
       class GameErrorException < StandardError; end
-
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
       rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
       rescue_from GameErrorException, with: :game_error
-
     end
 
     private
