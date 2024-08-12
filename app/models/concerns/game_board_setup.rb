@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/models/concerns/game_board_setup.rb
 
 module GameBoardSetup
@@ -18,7 +20,7 @@ module GameBoardSetup
   def create_cells
     rows.times do |row|
       cols.times do |col|
-        cells.create(row: row, col: col, mine: false, revealed: false, flag: false, adjacent_mines: 0)
+        cells.create(row:, col:, mine: false, revealed: false, flag: false, adjacent_mines: 0)
       end
     end
   end
@@ -38,7 +40,7 @@ module GameBoardSetup
   def calculate_adjacent_mines
     cells.each do |cell|
       adjacent_mines = neighboring_cells(cell).count(&:mine?)
-      cell.update(adjacent_mines: adjacent_mines)
+      cell.update(adjacent_mines:)
     end
   end
 end

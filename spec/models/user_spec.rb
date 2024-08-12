@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -25,13 +27,12 @@ RSpec.describe User, type: :model do
   it { should allow_value('user@example.com').for(:email) }
   it { should_not allow_value('userexample.com').for(:email) }
 
-  it "authenticates with a valid email and password" do
-    user = User.create(email: "user@example.com", password: "password")
-    expect(user.valid_password?("password")).to be_truthy
+  it 'authenticates with a valid email and password' do
+    user = User.create(email: 'user@example.com', password: 'password')
+    expect(user.valid_password?('password')).to be_truthy
   end
 
-
-  it "creates a user from omniauth data" do
+  it 'creates a user from omniauth data' do
     auth = OmniAuth::AuthHash.new(provider: 'google_oauth2', uid: '12345', info: { email: 'user@example.com', name: 'User Name', image: 'image_url' })
     user = User.from_omniauth(auth)
     expect(user.email).to eq('user@example.com')

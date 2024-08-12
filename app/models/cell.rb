@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: cells
@@ -24,9 +26,9 @@ class Cell < ApplicationRecord
 
   private
 
-  def prevent_state_change_if_game_is_lost    
-    if game.state.to_sym == :lost
-      errors.add :base, :invalid, message: "Cannot update a cell because the game is lost."
-    end
+  def prevent_state_change_if_game_is_lost
+    return unless game.state.to_sym == :lost
+
+    errors.add :base, :invalid, message: 'Cannot update a cell because the game is lost.'
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -21,12 +23,12 @@ FactoryBot.define do
     password { 'SecretPassword123' }
 
     transient do
-      games_count { 5 } 
+      games_count { 5 }
     end
 
     trait :with_games do
       after(:create) do |user, evaluator|
-        create_list(:game, evaluator.games_count, user: user)
+        create_list(:game, evaluator.games_count, user:)
       end
     end
   end

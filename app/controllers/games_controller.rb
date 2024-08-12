@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # app/controllers/games_controller.rb
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_game, except: %i[index new create] 
+  before_action :set_game, except: %i[index new create]
 
   def index
     @games = current_user.games
@@ -12,22 +14,22 @@ class GamesController < ApplicationController
   end
 
   def show
-    if @game.not_started?
-      @game.update_attribute(:state, :in_progress)
-    end
+    return unless @game.not_started?
+
+    @game.update_attribute(:state, :in_progress)
   end
 
   def create
     @game = current_user.games.new(game_params)
     if @game.save
       redirect_to games_path, notice: 'Game was successfully created.'
-    else      
+    else
       render :new
     end
   end
 
   def update
-    if @game.update(game_params)      
+    if @game.update(game_params)
       redirect_to @game, notice: 'Game was successfully updated.'
     else
       render :edit

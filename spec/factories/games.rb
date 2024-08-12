@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: games
@@ -16,7 +18,7 @@ FactoryBot.define do
   factory :game do
     rows { 3 }
     cols { 3 }
-    level { Game.levels[0]}
+    level { Game.levels[0] }
     mine_count { 0 }
     association :user, factory: :user
   end

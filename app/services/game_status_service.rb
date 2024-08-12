@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/services/game_status_service.rb
 class GameStatusService < ApplicationService
   def initialize(**args)
@@ -10,6 +12,6 @@ class GameStatusService < ApplicationService
   end
 
   def check_modifiable!
-    raise GameErrorException, "You cannot play a lost game." if @game.lost?
+    raise GameErrorException, 'You cannot play a lost game.' if @game.lost?
   end
 end

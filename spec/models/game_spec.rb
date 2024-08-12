@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: games
@@ -23,19 +25,19 @@ RSpec.describe Game, type: :model do
   it { should define_enum_for(:level).with_values(beginner: 0, intermediate: 1, advanced: 2, custom: 3) }
   it { should define_enum_for(:state).with_values(not_started: 0, in_progress: 1, won: 2, lost: 3) }
 
-  it "initializes the board correctly" do
+  it 'initializes the board correctly' do
     user = create(:user)
-    game = Game.create(level: :beginner, user: user)    
+    game = Game.create(level: :beginner, user:)
     expect(game.cells.count).to eq(81)
     expect(game.cells.where(mine: true).count).to eq(10)
-  end 
+  end
 
-  context "callback" do
-    let!(:game) { create(:game, state: :in_progress)}
-    before { game.update(state: :lost)}
+  context 'callback' do
+    let!(:game) { create(:game, state: :in_progress) }
+    before { game.update(state: :lost) }
 
-    it "does not allow updating if game is in lost state" do
-      expect { game.update!(state: :in_progress) }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: State cannot be changed once the game is lost.")
+    it 'does not allow updating if game is in lost state' do
+      expect { game.update!(state: :in_progress) }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: State cannot be changed once the game is lost.')
     end
   end
 end

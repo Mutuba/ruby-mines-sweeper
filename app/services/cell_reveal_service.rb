@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/services/cell_reveal_service.rb
 class CellRevealService < ApplicationService
   Result = Struct.new(:success?, :failure?)
@@ -43,8 +45,8 @@ class CellRevealService < ApplicationService
   end
 
   def check_win_condition(game)
-    if game.cells.where(mine: false, revealed: false).empty?
-      game.update!(state: :won)
-    end
+    return unless game.cells.where(mine: false, revealed: false).empty?
+
+    game.update!(state: :won)
   end
 end

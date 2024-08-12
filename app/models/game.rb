@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: games
@@ -24,10 +26,10 @@ class Game < ApplicationRecord
   enum level: {
     beginner: 0,
     intermediate: 1,
-    advanced: 2,    
-    custom: 3 
+    advanced: 2,
+    custom: 3
   }
-  
+
   enum state: {
     not_started: 0,
     in_progress: 1,
@@ -76,9 +78,9 @@ class Game < ApplicationRecord
   end
 
   def prevent_state_change_if_lost
-    if state_was.to_sym == :lost && state_changed?
-      errors.add(:state, "cannot be changed once the game is lost.")
-    end
+    return unless state_was.to_sym == :lost && state_changed?
+
+    errors.add(:state, 'cannot be changed once the game is lost.')
   end
 end
 

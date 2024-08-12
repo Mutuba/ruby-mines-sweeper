@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GameConstants
   BEGINNER_ROWS = 9
   BEGINNER_COLS = 9

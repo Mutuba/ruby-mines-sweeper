@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CellRevealService do
-  describe "# call" do
-    let(:game) { create(:game, rows: 2, cols: 2, mine_count: 0)}
-    let(:cell) { create(:cell, game: game, col: 2, row: 2) }
-    let(:neighboring_cells) { create_list(:cell, 3, game: game) }
+  describe '# call' do
+    let(:game) { create(:game, rows: 2, cols: 2, mine_count: 0) }
+    let(:cell) { create(:cell, game:, col: 2, row: 2) }
+    let(:neighboring_cells) { create_list(:cell, 3, game:) }
     let(:game_cells) { game.cells }
 
     context 'when cell is not revealed' do
       before { cell.update!(mine: false) }
-      
-      it "should update the cell to revealed" do
-        result = CellRevealService.call(cell: cell)
+
+      it 'should update the cell to revealed' do
+        CellRevealService.call(cell:)
         expect(cell.revealed).to eq(true)
       end
     end
@@ -25,9 +27,9 @@ RSpec.describe CellRevealService do
         allow(game).to receive(:update!).with(state: :lost).and_raise(ActiveRecord::Rollback)
       end
       it 'does not commit any changes and rolls back the transaction' do
-        CellRevealService.call(cell: cell)
+        CellRevealService.call(cell:)
         expect(cell.reload.revealed).to be false
-        expect(game.reload.state).not_to eq 'lost'  
+        expect(game.reload.state).not_to eq 'lost'
       end
     end
 
@@ -35,7 +37,7 @@ RSpec.describe CellRevealService do
       before { cell.update(revealed: true) }
 
       it 'does nothing' do
-        expect { CellRevealService.call(cell: cell) }.not_to change { cell.revealed }
+        expect { CellRevealService.call(cell:) }.not_to(change { cell.revealed })
         expect(game).not_to receive(:update!).with(any_args)
       end
     end
@@ -44,8 +46,8 @@ RSpec.describe CellRevealService do
       before { cell.update(mine: true) }
 
       it 'sets the game state to lost' do
-        CellRevealService.call(cell: cell)
-        expect(game.state).to eq 'lost'      
+        CellRevealService.call(cell:)
+        expect(game.state).to eq 'lost'
       end
     end
 
@@ -56,8 +58,8 @@ RSpec.describe CellRevealService do
       end
 
       it 'reveals all neighboring cells' do
-        CellRevealService.call(cell: cell)
-        neighboring_cells.each do |neighbor|          
+        CellRevealService.call(cell:)
+        neighboring_cells.each do |neighbor|
           expect(neighbor.revealed).to eq true
         end
         expect(game_cells).to have_received(:where).with(mine: false, revealed: false)
@@ -71,7 +73,7 @@ RSpec.describe CellRevealService do
       end
 
       it 'does not reveal neighboring cells' do
-        CellRevealService.call(cell: cell)
+        CellRevealService.call(cell:)
         neighboring_cells.each do |neighbor|
           expect(neighbor.revealed).to eq false
         end

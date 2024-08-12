@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Error module to handle errors globally
 module Error
   module ErrorHandler
@@ -16,7 +18,7 @@ module Error
     def game_error(message)
       respond_to do |format|
         format.html do
-          render 'errors/game_error', status: :unprocessable_entity, locals: { message: message }
+          render 'errors/game_error', status: :unprocessable_entity, locals: { message: }
         end
       end
     end
@@ -25,7 +27,7 @@ module Error
       resource_type = identify_resource_type(_e)
       respond_to do |format|
         format.html do
-          render 'errors/record_invalid', status: :unprocessable_entity, locals: { resource_type: resource_type }
+          render 'errors/record_invalid', status: :unprocessable_entity, locals: { resource_type: }
         end
       end
     end
@@ -34,7 +36,7 @@ module Error
       resource_type = identify_resource_type(_e)
       respond_to do |format|
         format.html do
-          render 'errors/404', status: :not_found, locals: { resource_type: resource_type }
+          render 'errors/404', status: :not_found, locals: { resource_type: }
         end
       end
     end
