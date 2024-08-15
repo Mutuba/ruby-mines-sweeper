@@ -24,6 +24,7 @@ RSpec.describe CellRevealService do
         # raising an exception, causes the transaction to be rolled back, but the exception is ignored
         # it will not be passed on to be handled in the rescue block
         # Notes here: https://api.rubyonrails.org/classes/ActiveRecord/Rollback.html
+        # manually roll back the transaction
         allow(game).to receive(:update!).with(state: :lost).and_raise(ActiveRecord::Rollback)
       end
       it 'does not commit any changes and rolls back the transaction' do

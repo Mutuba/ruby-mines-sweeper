@@ -29,8 +29,9 @@ class CellRevealService < ApplicationService
       check_win_condition(game)
     end
     success_result
-  rescue ActiveRecord::Rollback
+  rescue ActiveRecord::RecordInvalid => e    
     failure_result
+    Rails.logger.error "Validation failed: #{e.message}"
   rescue StandardError => e
     failure_result
     Rails.logger.error "An error occurred: #{e.message}"
