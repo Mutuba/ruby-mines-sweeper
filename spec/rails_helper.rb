@@ -13,13 +13,6 @@ require 'omniauth'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
-  end
-end
-
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
@@ -34,14 +27,11 @@ RSpec.configure do |config|
   ]
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Warden::Test::Helpers
-  OmniAuth.config.test_mode = true
-  config.after(:each) do
-    OmniAuth.config.add_mock(:google_oauth2, {})
-  end
+
 
   config.infer_spec_type_from_file_location!
 
-  config.include Rails.application.routes.url_helpers, type: :request
+  # config.include Rails.application.routes.url_helpers, type: :request
 
   config.use_transactional_fixtures = true
 
